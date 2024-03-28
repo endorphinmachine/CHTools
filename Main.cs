@@ -1,5 +1,4 @@
-﻿using OfficeOpenXml;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -13,15 +12,15 @@ namespace CHTools
         public Tools()
         {
             InitializeComponent();
-            ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
         // 导入Excel文件
         private void ExcelInputBtn_Click(object sender, EventArgs e)
         {
+            project.Builds.Clear();
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
-                openFileDialog.Filter = "(.xlsx)|*.xlsx";
+                openFileDialog.Filter = "(.xlsx, .xls)|*.xlsx; *.xls";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -41,12 +40,39 @@ namespace CHTools
             }
         }
 
+        private void EPSInputButton_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "(.edb)|*.edb";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                   EPSPathBox.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void EPSPathBox_TextChanged(object sender, EventArgs e)
+        {
+            if (File.Exists(EPSPathBox.Text))
+            {
+                Project EPSproject = EDBconnector.ReadEPS(EPSPathBox.Text);
+                NumberBox.Text = EPSproject.Number;
+                BuilderBox.Text = EPSproject.Builder;
+                DesignerBox.Text = EPSproject.Designer;
+                ContractorBox.Text = EPSproject.Contractor;
+                LocationBox.Text = EPSproject.Location;
+                JSGCGHXK.Text = EPSproject.BJNo;
+            }
+        }
+
         // 导入Word文件
         private void WordInputBtn_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
-                openFileDialog.Filter = "(*.docx)|*.docx|(*.doc)|*.doc";
+                openFileDialog.Filter = "(*.docx, *.doc)|*.docx; *.doc";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -101,46 +127,46 @@ namespace CHTools
         //生成矢量数据
         private void GenVecBtn_Click(object sender, EventArgs e)
         {
-            string tempPath = @"template\矢量数据模板.xlsx";
+            //string tempPath = @"template\矢量数据模板.xlsx";
 
-            if (!File.Exists(tempPath))
-            {
-                MessageBox.Show("未找到矢量数据模板文件，请检查模板文件是否缺失");
-            }
-            else if (WordPathBox.Items.Count == 0)
-            {
-                MessageBox.Show("请选择核实槪况表文件");
-            }
-            else
-            {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
-                    Title = "设置文件生成路径",
+            //if (!File.Exists(tempPath))
+            //{
+            //    MessageBox.Show("未找到矢量数据模板文件，请检查模板文件是否缺失");
+            //}
+            //else if (WordPathBox.Items.Count == 0)
+            //{
+            //    MessageBox.Show("请选择核实槪况表文件");
+            //}
+            //else
+            //{
+            //    SaveFileDialog saveFileDialog = new SaveFileDialog
+            //    {
+            //        Title = "设置文件生成路径",
 
-                    FileName = "+矢量数据",
+            //        FileName = "+矢量数据",
 
-                    Filter = " (*.xlsx)|*.xlsx|(*.xls)|*.xls"
-                };
+            //        Filter = " (*.xlsx)|*.xlsx|(*.xls)|*.xls"
+            //    };
 
-                if (saveFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    string savePath = saveFileDialog.FileName;
-                    using (var excelPackage = new ExcelPackage(new FileInfo(tempPath)))
-                    {
-                        foreach (string path in WordPathBox.Items)
-                        {
-                            if (!string.IsNullOrWhiteSpace(path))
-                            {
-                                Vector vector = ReadVec(path);
-                                WriteVec(excelPackage, vector);
-                            }
-                        }
-                        FileInfo newFileInfo = new FileInfo(savePath); 
-                        excelPackage.SaveAs(newFileInfo);
-                    }
-                    MessageBox.Show("文件已保存在：" + savePath, "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
-                }
-            }
+            //    if (saveFileDialog.ShowDialog() == DialogResult.OK)
+            //    {
+            //        string savePath = saveFileDialog.FileName;
+            //        using (var excelPackage = new ExcelPackage(new FileInfo(tempPath)))
+            //        {
+            //            foreach (string path in WordPathBox.Items)
+            //            {
+            //                if (!string.IsNullOrWhiteSpace(path))
+            //                {
+            //                    Vector vector = ReadVec(path);
+            //                    WriteVec(excelPackage, vector);
+            //                }
+            //            }
+            //            FileInfo newFileInfo = new FileInfo(savePath); 
+            //            excelPackage.SaveAs(newFileInfo);
+            //        }
+            //        MessageBox.Show("文件已保存在：" + savePath, "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            //    }
+            //}
         }
 
         //检核槪况数据
@@ -186,7 +212,7 @@ namespace CHTools
         }
         private void LicenseBox_TextChanged(object sender, EventArgs e)
         {
-            project.BJNo = LicenseBox.Text;
+            project.BJNo = JSGCGHXK.Text;
         }
         private void ApprovmentBox_TextChanged(object sender, EventArgs e)
         {

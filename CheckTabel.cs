@@ -3,7 +3,6 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -19,7 +18,7 @@ namespace CHTools
         {
             InitializeComponent();
             Load += GetPath;
-            this.SelectBox.SelectedIndexChanged += Check;
+            SelectBox.SelectedIndexChanged += Check;
             this.project = project;
         }
 
@@ -30,9 +29,9 @@ namespace CHTools
 
         public void Check(object sender, EventArgs e)
         {
-            List<Build> build = GetBuild(SelectBox.SelectedItem.ToString());
+            List<Build> builds = GetBuild(SelectBox.SelectedItem.ToString());
 
-            GenerateTable(build);
+            GenerateTable(builds);
         }
 
 
@@ -47,8 +46,8 @@ namespace CHTools
             table.Columns.Add("字段名称", typeof(string));
             table.Columns.Add("面积汇总表", typeof(string));
             table.Columns.Add("核实概况表", typeof(string));
-            table.Columns.Add("一致性", typeof(bool));
-            table.Columns.Add("修改数据(待开发)", typeof(string));
+            table.Columns.Add("是否一致", typeof(bool));
+            table.Columns.Add("同步修改数据(待开发)", typeof(string));
 
             // 添加行到转置后的 DataTable 中，行的数量等于原始数据列的数量
             table.Rows.Add("工程编号", ebuild.Number, wbuild.Number, IsMatch(ebuild.Number, wbuild.Number));
@@ -79,9 +78,10 @@ namespace CHTools
             cTable.DataSource = table;
 
             cTable.Columns["字段名称"].ReadOnly = true;
+            //cTable.Columns["EPS平面图廓"].ReadOnly = true;
             cTable.Columns["面积汇总表"].ReadOnly = true;
             cTable.Columns["核实概况表"].ReadOnly = true;
-            cTable.Columns["一致性"].ReadOnly = true;
+            cTable.Columns["是否一致"].ReadOnly = true;
             //cTable.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
         }
 
