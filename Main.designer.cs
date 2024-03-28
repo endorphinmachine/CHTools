@@ -38,7 +38,7 @@
             this.NumberBox = new System.Windows.Forms.TextBox();
             this.ApprovmentBox = new System.Windows.Forms.TextBox();
             this.DesignerBox = new System.Windows.Forms.TextBox();
-            this.LicenseBox = new System.Windows.Forms.TextBox();
+            this.JSGCGHXK = new System.Windows.Forms.TextBox();
             this.ContractorBox = new System.Windows.Forms.TextBox();
             this.BuilderBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -52,17 +52,21 @@
             this.ProjNumber = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
-            this.label11 = new System.Windows.Forms.Label();
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.EPSInputButton = new System.Windows.Forms.Button();
+            this.EPSPathBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.FileBtn = new System.Windows.Forms.Button();
             GenerateBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // GenerateBtn
             // 
             GenerateBtn.Font = new System.Drawing.Font("微软雅黑", 9F);
-            GenerateBtn.Location = new System.Drawing.Point(28, 284);
+            GenerateBtn.Location = new System.Drawing.Point(27, 324);
             GenerateBtn.Margin = new System.Windows.Forms.Padding(4);
             GenerateBtn.Name = "GenerateBtn";
             GenerateBtn.Size = new System.Drawing.Size(120, 30);
@@ -74,7 +78,7 @@
             // GenVecBtn
             // 
             this.GenVecBtn.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.GenVecBtn.Location = new System.Drawing.Point(461, 284);
+            this.GenVecBtn.Location = new System.Drawing.Point(321, 324);
             this.GenVecBtn.Name = "GenVecBtn";
             this.GenVecBtn.Size = new System.Drawing.Size(120, 30);
             this.GenVecBtn.TabIndex = 95;
@@ -85,7 +89,7 @@
             // WordPathBox
             // 
             this.WordPathBox.FormattingEnabled = true;
-            this.WordPathBox.Location = new System.Drawing.Point(120, 244);
+            this.WordPathBox.Location = new System.Drawing.Point(120, 284);
             this.WordPathBox.Margin = new System.Windows.Forms.Padding(4);
             this.WordPathBox.Name = "WordPathBox";
             this.WordPathBox.Size = new System.Drawing.Size(394, 23);
@@ -93,7 +97,7 @@
             // 
             // WordInputBtn
             // 
-            this.WordInputBtn.Location = new System.Drawing.Point(521, 239);
+            this.WordInputBtn.Location = new System.Drawing.Point(521, 279);
             this.WordInputBtn.Name = "WordInputBtn";
             this.WordInputBtn.Size = new System.Drawing.Size(60, 30);
             this.WordInputBtn.TabIndex = 93;
@@ -103,7 +107,7 @@
             // 
             // ExcelInputBtn
             // 
-            this.ExcelInputBtn.Location = new System.Drawing.Point(521, 203);
+            this.ExcelInputBtn.Location = new System.Drawing.Point(521, 242);
             this.ExcelInputBtn.Name = "ExcelInputBtn";
             this.ExcelInputBtn.Size = new System.Drawing.Size(60, 30);
             this.ExcelInputBtn.TabIndex = 92;
@@ -113,7 +117,7 @@
             // 
             // ExcelPathBox
             // 
-            this.ExcelPathBox.Location = new System.Drawing.Point(121, 205);
+            this.ExcelPathBox.Location = new System.Drawing.Point(120, 243);
             this.ExcelPathBox.Name = "ExcelPathBox";
             this.ExcelPathBox.Size = new System.Drawing.Size(393, 25);
             this.ExcelPathBox.TabIndex = 91;
@@ -151,13 +155,13 @@
             this.DesignerBox.TabIndex = 74;
             this.DesignerBox.TextChanged += new System.EventHandler(this.DesignerBox_TextChanged);
             // 
-            // LicenseBox
+            // JSGCGHXK
             // 
-            this.LicenseBox.Location = new System.Drawing.Point(196, 131);
-            this.LicenseBox.Name = "LicenseBox";
-            this.LicenseBox.Size = new System.Drawing.Size(134, 25);
-            this.LicenseBox.TabIndex = 78;
-            this.LicenseBox.TextChanged += new System.EventHandler(this.LicenseBox_TextChanged);
+            this.JSGCGHXK.Location = new System.Drawing.Point(196, 131);
+            this.JSGCGHXK.Name = "JSGCGHXK";
+            this.JSGCGHXK.Size = new System.Drawing.Size(134, 25);
+            this.JSGCGHXK.TabIndex = 78;
+            this.JSGCGHXK.TextChanged += new System.EventHandler(this.LicenseBox_TextChanged);
             // 
             // ContractorBox
             // 
@@ -178,7 +182,7 @@
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(25, 247);
+            this.label7.Location = new System.Drawing.Point(24, 287);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(90, 15);
             this.label7.TabIndex = 90;
@@ -187,7 +191,7 @@
             // label5
             // 
             this.label5.AutoSize = true;
-            this.label5.Location = new System.Drawing.Point(25, 214);
+            this.label5.Location = new System.Drawing.Point(24, 250);
             this.label5.Name = "label5";
             this.label5.Size = new System.Drawing.Size(90, 15);
             this.label5.TabIndex = 89;
@@ -227,7 +231,7 @@
             // CheckBtn
             // 
             this.CheckBtn.Font = new System.Drawing.Font("微软雅黑", 9F);
-            this.CheckBtn.Location = new System.Drawing.Point(246, 284);
+            this.CheckBtn.Location = new System.Drawing.Point(176, 324);
             this.CheckBtn.Margin = new System.Windows.Forms.Padding(4);
             this.CheckBtn.Name = "CheckBtn";
             this.CheckBtn.Size = new System.Drawing.Size(120, 30);
@@ -285,15 +289,6 @@
             this.label2.TabIndex = 73;
             this.label2.Text = "设计单位:";
             // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(339, 134);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(90, 15);
-            this.label11.TabIndex = 79;
-            this.label11.Text = "相关批文号:";
-            // 
             // label6
             // 
             this.label6.AutoSize = true;
@@ -321,12 +316,63 @@
             this.label1.TabIndex = 69;
             this.label1.Text = "建设单位:";
             // 
+            // EPSInputButton
+            // 
+            this.EPSInputButton.Location = new System.Drawing.Point(521, 202);
+            this.EPSInputButton.Name = "EPSInputButton";
+            this.EPSInputButton.Size = new System.Drawing.Size(60, 30);
+            this.EPSInputButton.TabIndex = 98;
+            this.EPSInputButton.Text = "浏览";
+            this.EPSInputButton.UseVisualStyleBackColor = true;
+            this.EPSInputButton.Click += new System.EventHandler(this.EPSInputButton_Click);
+            // 
+            // EPSPathBox
+            // 
+            this.EPSPathBox.Location = new System.Drawing.Point(120, 205);
+            this.EPSPathBox.Name = "EPSPathBox";
+            this.EPSPathBox.Size = new System.Drawing.Size(393, 25);
+            this.EPSPathBox.TabIndex = 97;
+            this.EPSPathBox.TextChanged += new System.EventHandler(this.EPSPathBox_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(30, 211);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(84, 15);
+            this.label9.TabIndex = 96;
+            this.label9.Text = "EPS平面图:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(339, 134);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(90, 15);
+            this.label11.TabIndex = 79;
+            this.label11.Text = "相关批文号:";
+            // 
+            // FileBtn
+            // 
+            this.FileBtn.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.FileBtn.Location = new System.Drawing.Point(465, 324);
+            this.FileBtn.Name = "FileBtn";
+            this.FileBtn.Size = new System.Drawing.Size(120, 30);
+            this.FileBtn.TabIndex = 99;
+            this.FileBtn.Text = "文件格式转换";
+            this.FileBtn.UseVisualStyleBackColor = true;
+            this.FileBtn.Click += new System.EventHandler(this.FileBtn_Click);
+            // 
             // Tools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
-            this.ClientSize = new System.Drawing.Size(614, 335);
+            this.ClientSize = new System.Drawing.Size(614, 375);
+            this.Controls.Add(this.FileBtn);
+            this.Controls.Add(this.EPSInputButton);
+            this.Controls.Add(this.EPSPathBox);
+            this.Controls.Add(this.label9);
             this.Controls.Add(this.GenVecBtn);
             this.Controls.Add(this.WordPathBox);
             this.Controls.Add(this.WordInputBtn);
@@ -336,7 +382,7 @@
             this.Controls.Add(this.NumberBox);
             this.Controls.Add(this.ApprovmentBox);
             this.Controls.Add(this.DesignerBox);
-            this.Controls.Add(this.LicenseBox);
+            this.Controls.Add(this.JSGCGHXK);
             this.Controls.Add(this.ContractorBox);
             this.Controls.Add(this.BuilderBox);
             this.Controls.Add(this.label7);
@@ -375,7 +421,7 @@
         private System.Windows.Forms.TextBox NumberBox;
         private System.Windows.Forms.TextBox ApprovmentBox;
         private System.Windows.Forms.TextBox DesignerBox;
-        private System.Windows.Forms.TextBox LicenseBox;
+        private System.Windows.Forms.TextBox JSGCGHXK;
         private System.Windows.Forms.TextBox ContractorBox;
         private System.Windows.Forms.TextBox BuilderBox;
         private System.Windows.Forms.Label label7;
@@ -389,10 +435,14 @@
         private System.Windows.Forms.Label ProjNumber;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
-        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Button EPSInputButton;
+        private System.Windows.Forms.TextBox EPSPathBox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button FileBtn;
     }
 }
 

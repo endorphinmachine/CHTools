@@ -21,8 +21,7 @@ namespace CHTools
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
-                openFileDialog.Filter = "(.xlsx)|*.xlsx";
-
+                openFileDialog.Filter = "Excel 文件 (*.xlsx)|*.xlsx";
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     ExcelPathBox.Text = openFileDialog.FileName;
@@ -41,12 +40,39 @@ namespace CHTools
             }
         }
 
+        private void EPSInputButton_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "EPS 工程 (.edb)|*.edb";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    EPSPathBox.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void EPSPathBox_TextChanged(object sender, EventArgs e)
+        {
+            EPSOp EPSop = new EPSOp(EPSPathBox.Text);
+            if (EPSop.ShowDialog() == DialogResult.OK)
+            {
+                NumberBox.Text = EPSop.EpsProject.Number;
+                BuilderBox.Text = EPSop.EpsProject.Builder;
+                DesignerBox.Text = EPSop.EpsProject.Designer;
+                ContractorBox.Text = EPSop.EpsProject.Contractor;
+                LocationBox.Text = EPSop.EpsProject.Location;
+                JSGCGHXK.Text = EPSop.EpsProject.BJNo;
+            }
+        }
+
         // 导入Word文件
         private void WordInputBtn_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
-                openFileDialog.Filter = "(*.docx)|*.docx|(*.doc)|*.doc";
+                openFileDialog.Filter = "Word 文档 (*.docx)|*.doc";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -63,7 +89,10 @@ namespace CHTools
         // 生成核实概况
         private void GenerateBtn_Click(object sender, EventArgs e)
         {
-            string buildMessage = string.Empty;
+            noMatchItem.Clear();
+            noMatchBuild.Clear();
+            MatchedBuild.Clear();
+            Cursor.Current = Cursors.WaitCursor;
 
             if (!File.Exists(ExcelPathBox.Text))
             {
@@ -79,28 +108,31 @@ namespace CHTools
             }
             else
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
-                    Title = "设置文件生成路径",
-
-                    FileName = "+矢量数据",
-
-                    Filter = " (*.xlsx)|*.xlsx|(*.xls)|*.xls"
-                };
                 foreach (Build build in project.Builds)
                 {
                     // 在此根据build.name搜索对应word并将路径给到下面的函数
                     Generate(build);
-                    buildMessage += build.Name + "\n";
                 }
-                MessageBox.Show(buildMessage + "\n槪况表已保存在当前目录",
+                if (noMatchBuild.Count != 0)
+                {
+                    MessageBox.Show(string.Join("\n", noMatchBuild) + "\n建设项目名称未生成，请检查项目名称是否匹配",
+                    "注意", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (noMatchItem.Count != 0)
+                {
+                    MessageBox.Show(string.Join("\n", noMatchItem) + "\n建设项目字段未匹配，请检查字段名称并手动填写",
+                    "注意", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                MessageBox.Show(string.Join("\n", MatchedBuild) + "\n概况表已生成",
                  "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            Cursor.Current = Cursors.Default;
         }
-        
+
         //生成矢量数据
         private void GenVecBtn_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             string tempPath = @"template\矢量数据模板.xlsx";
 
             if (!File.Exists(tempPath))
@@ -119,7 +151,7 @@ namespace CHTools
 
                     FileName = "+矢量数据",
 
-                    Filter = " (*.xlsx)|*.xlsx|(*.xls)|*.xls"
+                    Filter = "Excel 文件 (*.xlsx,*.xls)|*.xlsx;*.xls"
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -135,17 +167,19 @@ namespace CHTools
                                 WriteVec(excelPackage, vector);
                             }
                         }
-                        FileInfo newFileInfo = new FileInfo(savePath); 
+                        FileInfo newFileInfo = new FileInfo(savePath);
                         excelPackage.SaveAs(newFileInfo);
                     }
                     MessageBox.Show("文件已保存在：" + savePath, "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+            Cursor.Current = Cursors.Default;
         }
 
         //检核槪况数据
         public void CheckBtn_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (!File.Exists(ExcelPathBox.Text))
             {
                 MessageBox.Show("请检查面积汇总表文件路径是否有误");
@@ -164,9 +198,8 @@ namespace CHTools
 
                 checkTabel.ShowDialog();
             }
+            Cursor.Current = Cursors.Default;
         }
-
-        
 
         private void BuilderBox_TextChanged(object sender, EventArgs e)
         {
@@ -186,7 +219,7 @@ namespace CHTools
         }
         private void LicenseBox_TextChanged(object sender, EventArgs e)
         {
-            project.BJNo = LicenseBox.Text;
+            project.BJNo = JSGCGHXK.Text;
         }
         private void ApprovmentBox_TextChanged(object sender, EventArgs e)
         {
@@ -196,5 +229,11 @@ namespace CHTools
         {
             project.Number = NumberBox.Text;
         }
+
+        private void FileBtn_Click(object sender, EventArgs e)
+        {
+            Form FileTrans = new FileTrans();
+            FileTrans.Show();
+        }
     }
-}
+ }

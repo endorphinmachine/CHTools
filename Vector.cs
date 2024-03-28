@@ -1,12 +1,12 @@
-﻿using DocumentFormat.OpenXml.Wordprocessing;
-using DocumentFormat.OpenXml.Packaging;
+﻿using DocumentFormat.OpenXml.Packaging;
+using DocumentFormat.OpenXml.Wordprocessing;
 using OfficeOpenXml;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using System.Linq;
 
 namespace CHTools
 {
@@ -43,7 +43,7 @@ namespace CHTools
                         Vector.Permission["幢数"] = ZS.Trim();
                     }
 
-                    Vector.Permission["总面积计和"] = Utils.GetCellVal(tableB, 1, 4).Trim(); 
+                    Vector.Permission["总面积计和"] = Utils.GetCellVal(tableB, 1, 4).Trim();
 
                     Vector.Permission["总建筑面积地上"] = Utils.GetCellVal(tableB, 2, 5).Trim();
 
@@ -54,11 +54,11 @@ namespace CHTools
 
                     Vector.Permission["建筑层数地下"] = Utils.GetCellVal(tableB, 5, 4).Trim();
 
-                    Vector.Permission["总计算容积率面积计和"] = Utils.GetCellVal(tableA, 13, 3).Trim(); 
+                    Vector.Permission["总计算容积率面积计和"] = Utils.GetCellVal(tableA, 13, 3).Trim();
 
-                    Vector.Permission["基底面积"] = Utils.GetCellVal(tableA, 12, 3).Trim(); 
+                    Vector.Permission["基底面积"] = Utils.GetCellVal(tableA, 12, 3).Trim();
 
-                    string WQSM = Utils.GetCellVal(tableA, 17, 2).Trim(); 
+                    string WQSM = Utils.GetCellVal(tableA, 17, 2).Trim();
 
                     string JRSM = Utils.GetCellVal(tableA, 17, 4).Trim();
 
@@ -142,7 +142,7 @@ namespace CHTools
             List<string> itemLayer = new List<string>();
             for (int i = startRow; i < endRow; i++)
             {
-                string name = Utils.GetCellVal(table, i , 1).Trim();
+                string name = Utils.GetCellVal(table, i, 1).Trim();
                 if (!string.IsNullOrEmpty(name))
                 {
                     string area = Utils.GetCellVal(table, i, 3).Trim();
