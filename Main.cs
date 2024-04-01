@@ -21,12 +21,7 @@ namespace CHTools
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
-<<<<<<< Updated upstream
-                openFileDialog.Filter = "(.xlsx)|*.xlsx";
-=======
                 openFileDialog.Filter = "Excel 文件 (*.xlsx)|*.xlsx";
->>>>>>> Stashed changes
-
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     ExcelPathBox.Text = openFileDialog.FileName;
@@ -45,8 +40,6 @@ namespace CHTools
             }
         }
 
-<<<<<<< Updated upstream
-=======
         private void EPSInputButton_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog())
@@ -74,17 +67,12 @@ namespace CHTools
             }
         }
 
->>>>>>> Stashed changes
         // 导入Word文件
         private void WordInputBtn_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
-<<<<<<< Updated upstream
-                openFileDialog.Filter = "(*.docx)|*.docx|(*.doc)|*.doc";
-=======
                 openFileDialog.Filter = "Word 文档 (*.docx)|*.docx";
->>>>>>> Stashed changes
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -133,10 +121,7 @@ namespace CHTools
         //生成矢量数据
         private void GenVecBtn_Click(object sender, EventArgs e)
         {
-<<<<<<< Updated upstream
-=======
             Cursor.Current = Cursors.WaitCursor;
->>>>>>> Stashed changes
             string tempPath = @"template\矢量数据模板.xlsx";
 
             if (!File.Exists(tempPath))
@@ -155,11 +140,7 @@ namespace CHTools
 
                     FileName = "+矢量数据",
 
-<<<<<<< Updated upstream
-                    Filter = " (*.xlsx)|*.xlsx|(*.xls)|*.xls"
-=======
                     Filter = "Excel 文件 (*.xlsx,*.xls)|*.xlsx;*.xls"
->>>>>>> Stashed changes
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -175,21 +156,13 @@ namespace CHTools
                                 WriteVec(excelPackage, vector);
                             }
                         }
-<<<<<<< Updated upstream
-                        FileInfo newFileInfo = new FileInfo(savePath); 
-=======
                         FileInfo newFileInfo = new FileInfo(savePath);
->>>>>>> Stashed changes
                         excelPackage.SaveAs(newFileInfo);
                     }
                     MessageBox.Show("文件已保存在：" + savePath, "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
-<<<<<<< Updated upstream
-=======
             Cursor.Current = Cursors.Default;
->>>>>>> Stashed changes
-        }
 
         //检核槪况数据
         public void CheckBtn_Click(object sender, EventArgs e)
@@ -215,9 +188,7 @@ namespace CHTools
             }
             Cursor.Current = Cursors.Default;
         }
-
         
-
         private void BuilderBox_TextChanged(object sender, EventArgs e)
         {
             project.Builder = BuilderBox.Text;
