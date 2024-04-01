@@ -56,6 +56,14 @@
             this.label6 = new System.Windows.Forms.Label();
             this.label8 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+<<<<<<< Updated upstream
+=======
+            this.EPSInputButton = new System.Windows.Forms.Button();
+            this.EPSPathBox = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.FileBtn = new System.Windows.Forms.Button();
+>>>>>>> Stashed changes
             GenerateBtn = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
@@ -74,7 +82,11 @@
             // GenVecBtn
             // 
             this.GenVecBtn.Font = new System.Drawing.Font("微软雅黑", 9F);
+<<<<<<< Updated upstream
             this.GenVecBtn.Location = new System.Drawing.Point(461, 284);
+=======
+            this.GenVecBtn.Location = new System.Drawing.Point(319, 324);
+>>>>>>> Stashed changes
             this.GenVecBtn.Name = "GenVecBtn";
             this.GenVecBtn.Size = new System.Drawing.Size(120, 30);
             this.GenVecBtn.TabIndex = 95;
@@ -227,7 +239,11 @@
             // CheckBtn
             // 
             this.CheckBtn.Font = new System.Drawing.Font("微软雅黑", 9F);
+<<<<<<< Updated upstream
             this.CheckBtn.Location = new System.Drawing.Point(246, 284);
+=======
+            this.CheckBtn.Location = new System.Drawing.Point(172, 324);
+>>>>>>> Stashed changes
             this.CheckBtn.Margin = new System.Windows.Forms.Padding(4);
             this.CheckBtn.Name = "CheckBtn";
             this.CheckBtn.Size = new System.Drawing.Size(120, 30);
@@ -321,12 +337,70 @@
             this.label1.TabIndex = 69;
             this.label1.Text = "建设单位:";
             // 
+<<<<<<< Updated upstream
+=======
+            // EPSInputButton
+            // 
+            this.EPSInputButton.Location = new System.Drawing.Point(521, 202);
+            this.EPSInputButton.Name = "EPSInputButton";
+            this.EPSInputButton.Size = new System.Drawing.Size(60, 30);
+            this.EPSInputButton.TabIndex = 98;
+            this.EPSInputButton.Text = "浏览";
+            this.EPSInputButton.UseVisualStyleBackColor = true;
+            this.EPSInputButton.Click += new System.EventHandler(this.EPSInputButton_Click);
+            // 
+            // EPSPathBox
+            // 
+            this.EPSPathBox.Location = new System.Drawing.Point(120, 205);
+            this.EPSPathBox.Name = "EPSPathBox";
+            this.EPSPathBox.Size = new System.Drawing.Size(393, 25);
+            this.EPSPathBox.TabIndex = 97;
+            this.EPSPathBox.TextChanged += new System.EventHandler(this.EPSPathBox_TextChanged);
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(30, 211);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(84, 15);
+            this.label9.TabIndex = 96;
+            this.label9.Text = "EPS平面图:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(339, 134);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(90, 15);
+            this.label11.TabIndex = 79;
+            this.label11.Text = "相关批文号:";
+            // 
+            // FileBtn
+            // 
+            this.FileBtn.Font = new System.Drawing.Font("微软雅黑", 9F);
+            this.FileBtn.Location = new System.Drawing.Point(465, 324);
+            this.FileBtn.Name = "FileBtn";
+            this.FileBtn.Size = new System.Drawing.Size(120, 30);
+            this.FileBtn.TabIndex = 99;
+            this.FileBtn.Text = "文件格式转换";
+            this.FileBtn.UseVisualStyleBackColor = true;
+            this.FileBtn.Click += new System.EventHandler(this.FileBtn_Click);
+            // 
+>>>>>>> Stashed changes
             // Tools
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.AutoScroll = true;
+<<<<<<< Updated upstream
             this.ClientSize = new System.Drawing.Size(614, 335);
+=======
+            this.ClientSize = new System.Drawing.Size(614, 375);
+            this.Controls.Add(this.FileBtn);
+            this.Controls.Add(this.EPSInputButton);
+            this.Controls.Add(this.EPSPathBox);
+            this.Controls.Add(this.label9);
+>>>>>>> Stashed changes
             this.Controls.Add(this.GenVecBtn);
             this.Controls.Add(this.WordPathBox);
             this.Controls.Add(this.WordInputBtn);
@@ -393,6 +467,14 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label1;
+<<<<<<< Updated upstream
+=======
+        private System.Windows.Forms.Button EPSInputButton;
+        private System.Windows.Forms.TextBox EPSPathBox;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button FileBtn;
+>>>>>>> Stashed changes
     }
 }
 

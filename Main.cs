@@ -21,7 +21,11 @@ namespace CHTools
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
+<<<<<<< Updated upstream
                 openFileDialog.Filter = "(.xlsx)|*.xlsx";
+=======
+                openFileDialog.Filter = "Excel 文件 (*.xlsx)|*.xlsx";
+>>>>>>> Stashed changes
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -41,12 +45,46 @@ namespace CHTools
             }
         }
 
+<<<<<<< Updated upstream
+=======
+        private void EPSInputButton_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "EPS 工程 (.edb)|*.edb";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                   EPSPathBox.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void EPSPathBox_TextChanged(object sender, EventArgs e)
+        {
+            if (File.Exists(EPSPathBox.Text))
+            {
+                Project EPSproject = EDBconnector.ReadEPS(EPSPathBox.Text);
+                NumberBox.Text = EPSproject.Number;
+                BuilderBox.Text = EPSproject.Builder;
+                DesignerBox.Text = EPSproject.Designer;
+                ContractorBox.Text = EPSproject.Contractor;
+                LocationBox.Text = EPSproject.Location;
+                JSGCGHXK.Text = EPSproject.BJNo;
+            }
+        }
+
+>>>>>>> Stashed changes
         // 导入Word文件
         private void WordInputBtn_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
+<<<<<<< Updated upstream
                 openFileDialog.Filter = "(*.docx)|*.docx|(*.doc)|*.doc";
+=======
+                openFileDialog.Filter = "Word 文档 (*.docx)|*.docx";
+>>>>>>> Stashed changes
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -63,6 +101,7 @@ namespace CHTools
         // 生成核实概况
         private void GenerateBtn_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             string buildMessage = string.Empty;
 
             if (!File.Exists(ExcelPathBox.Text))
@@ -79,14 +118,6 @@ namespace CHTools
             }
             else
             {
-                SaveFileDialog saveFileDialog = new SaveFileDialog
-                {
-                    Title = "设置文件生成路径",
-
-                    FileName = "+矢量数据",
-
-                    Filter = " (*.xlsx)|*.xlsx|(*.xls)|*.xls"
-                };
                 foreach (Build build in project.Builds)
                 {
                     // 在此根据build.name搜索对应word并将路径给到下面的函数
@@ -96,11 +127,16 @@ namespace CHTools
                 MessageBox.Show(buildMessage + "\n槪况表已保存在当前目录",
                  "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
+            Cursor.Current = Cursors.Default;
         }
         
         //生成矢量数据
         private void GenVecBtn_Click(object sender, EventArgs e)
         {
+<<<<<<< Updated upstream
+=======
+            Cursor.Current = Cursors.WaitCursor;
+>>>>>>> Stashed changes
             string tempPath = @"template\矢量数据模板.xlsx";
 
             if (!File.Exists(tempPath))
@@ -119,7 +155,11 @@ namespace CHTools
 
                     FileName = "+矢量数据",
 
+<<<<<<< Updated upstream
                     Filter = " (*.xlsx)|*.xlsx|(*.xls)|*.xls"
+=======
+                    Filter = "Excel 文件 (*.xlsx,*.xls)|*.xlsx;*.xls"
+>>>>>>> Stashed changes
                 };
 
                 if (saveFileDialog.ShowDialog() == DialogResult.OK)
@@ -135,17 +175,26 @@ namespace CHTools
                                 WriteVec(excelPackage, vector);
                             }
                         }
+<<<<<<< Updated upstream
                         FileInfo newFileInfo = new FileInfo(savePath); 
+=======
+                        FileInfo newFileInfo = new FileInfo(savePath);
+>>>>>>> Stashed changes
                         excelPackage.SaveAs(newFileInfo);
                     }
                     MessageBox.Show("文件已保存在：" + savePath, "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
                 }
             }
+<<<<<<< Updated upstream
+=======
+            Cursor.Current = Cursors.Default;
+>>>>>>> Stashed changes
         }
 
         //检核槪况数据
         public void CheckBtn_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             if (!File.Exists(ExcelPathBox.Text))
             {
                 MessageBox.Show("请检查面积汇总表文件路径是否有误");
@@ -164,6 +213,7 @@ namespace CHTools
 
                 checkTabel.ShowDialog();
             }
+            Cursor.Current = Cursors.Default;
         }
 
         
@@ -195,6 +245,12 @@ namespace CHTools
         private void NumberBox_TextChanged(object sender, EventArgs e)
         {
             project.Number = NumberBox.Text;
+        }
+
+        private void FileBtn_Click(object sender, EventArgs e)
+        {
+            Form FileTrans = new FileTrans();
+            FileTrans.Show();
         }
     }
 }
