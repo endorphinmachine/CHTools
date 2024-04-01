@@ -249,7 +249,7 @@
     <Compile Include="Vector.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="Write.cs">
+    <Compile Include="Write.cs" />
     <Compile Include="WordOp.cs">
       <SubType>Form</SubType>
     </Compile>
