@@ -72,7 +72,7 @@ namespace CHTools
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
-                openFileDialog.Filter = "Word 文档 (*.docx)|*.doc";
+                openFileDialog.Filter = "Word 文档 (*.docx)|*.docx";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {

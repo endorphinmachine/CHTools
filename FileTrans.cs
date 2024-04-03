@@ -16,7 +16,6 @@ namespace CHTools
         {
             InitializeComponent();
         }
-
         public static void DocToDocx(Word.Application app, string inPath)
         {
             string outPath = Path.ChangeExtension(inPath, ".docx");
@@ -72,12 +71,14 @@ namespace CHTools
 
         private void ChooseBtn_Click(object sender, EventArgs e)
         {
+
             InputPathBox.Text = string.Empty;
             string filterText = string.Empty;
             if (ToDocx.Checked)
             {
                 filterText = "*.doc | *.doc";
             }
+
             else if (ToDoc.Checked)
             {
                 filterText = "*.docx | *.docx";
@@ -157,3 +158,4 @@ namespace CHTools
         }
     }
 }
+

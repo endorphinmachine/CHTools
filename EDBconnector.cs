@@ -4,6 +4,10 @@ using System.Collections.Generic;
 using System.Data.OleDb;
 using System.IO;
 using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+
 
 namespace CHTools
 {
@@ -14,6 +18,7 @@ namespace CHTools
             Project project = new Project();
             string connectionString = $"Provider=Microsoft.Jet.OLEDB.4.0; Data Source={EPSPath}";
             List<string> Numbers = new List<string>();
+            string projectNumber = Path.GetFileNameWithoutExtension(EPSPath).Substring(0, 11);
             using (OleDbConnection con = new OleDbConnection(connectionString))
             {
                 try
@@ -34,6 +39,7 @@ namespace CHTools
                                 //project.Builder = reader["建设单位"].ToString();
                                 //project.Designer = reader["设计单位"].ToString();
                                 //project.Contractor = reader["施工单位"].ToString();
+                                string number = reader["工程编号"].ToString();
                             }
                             reader.Close();
                             return project;
@@ -43,7 +49,6 @@ namespace CHTools
                 catch (Exception ex)
                 {
                     Console.WriteLine(ex.Message);
-                    return null;
                 }
             }
         }

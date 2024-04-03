@@ -67,8 +67,6 @@ namespace CHTools
             }
         }
 
-
-
         //获取单元
         private static List<BuildUnit> GetBuildUnits(ExcelWorksheet worksheet, int nameRow, int startRow, int endRow)
         {
@@ -177,7 +175,6 @@ namespace CHTools
 
             return MergedRow;
         }
-
         // 统计面积汇总表中一行的非空单元格
         public static int NonEmptyCellCount(ExcelWorksheet worksheet, int rowIndex)
         {
@@ -185,5 +182,6 @@ namespace CHTools
 
             return row.Count(cell => !string.IsNullOrEmpty(cell.Text));
         }
+
     }
 }

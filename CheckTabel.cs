@@ -84,7 +84,7 @@ namespace CHTools
             cTable.Columns["是否一致"].ReadOnly = true;
             //cTable.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
         }
-
+        
         private List<Build> GetBuild(string path)
         {
             if (!File.Exists(path.ToString()))
