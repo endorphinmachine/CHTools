@@ -1,12 +1,10 @@
-﻿using Microsoft.Office.Interop.Excel;
-using OfficeOpenXml;
-using System;
+﻿using OfficeOpenXml;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text.RegularExpressions;
 using System.Windows.Forms;
-using Application = Microsoft.Office.Interop.Excel.Application;
+
 
 namespace CHTools
 {
@@ -15,9 +13,9 @@ namespace CHTools
         // 根据EXCEL文件路径读取建设项目信息
         public void ReadExcel()
         {
-            string excelpath = XlsToXlsx(ExcelPathBox.Text);
+            project.Builds.Clear();
 
-            using (var excelPackage = new ExcelPackage(new FileInfo(excelpath)))
+            using (var excelPackage = new ExcelPackage(new FileInfo(ExcelPathBox.Text)))
             {
                 var excelSheet = excelPackage.Workbook.Worksheets[0];
 
@@ -69,37 +67,7 @@ namespace CHTools
             }
         }
 
-        public static string XlsToXlsx(string filePath)
-        {
-            string extension = Path.GetExtension(filePath);
-            string newFilePath = string.Empty;
-
-            if (extension.Equals(".xls", StringComparison.OrdinalIgnoreCase))
-            {
-                newFilePath = Path.ChangeExtension(filePath, ".xlsx");
-                Application excelApp = new Application();
-                Workbook workbook = excelApp.Workbooks.Open(filePath);
-
-                workbook.SaveAs(newFilePath, XlFileFormat.xlOpenXMLWorkbook);
-                workbook.Close(false);
-                excelApp.Quit();;
-            }
-            else 
-            {
-                newFilePath = filePath;
-            }
-            return newFilePath;
-        }
-
-        // 统计面积汇总表中一行的非空单元格
-        public static int NonEmptyCellCount(ExcelWorksheet worksheet, int rowIndex)
-        {
-            var row = worksheet.Cells[rowIndex, 1, rowIndex, worksheet.Dimension.End.Column];
-
-            return row.Count(cell => !string.IsNullOrEmpty(cell.Text));
-        }
-
-        //获取建筑单元
+        //获取单元
         private static List<BuildUnit> GetBuildUnits(ExcelWorksheet worksheet, int nameRow, int startRow, int endRow)
         {
             List<BuildUnit> units = new List<BuildUnit>();
@@ -207,5 +175,13 @@ namespace CHTools
 
             return MergedRow;
         }
+        // 统计面积汇总表中一行的非空单元格
+        public static int NonEmptyCellCount(ExcelWorksheet worksheet, int rowIndex)
+        {
+            var row = worksheet.Cells[rowIndex, 1, rowIndex, worksheet.Dimension.End.Column];
+
+            return row.Count(cell => !string.IsNullOrEmpty(cell.Text));
+        }
+
     }
 }

@@ -1,10 +1,7 @@
 ﻿using DocumentFormat.OpenXml.Wordprocessing;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CHTools
 {
@@ -57,19 +54,33 @@ namespace CHTools
             return targetCell.InnerText;
         }
 
-        public static void SetCellVal(Table table, int row, int col, string newVal)
+        public static void SetCellVal(Table table, int row, int col, string newVal, bool isInt, bool isCenter)
         {
+            var val = isCenter ? JustificationValues.Center : JustificationValues.Left;
+
             TableRow targetRow = table.Elements<TableRow>().ElementAtOrDefault(row);
             TableCell targetCell = targetRow.Elements<TableCell>().ElementAtOrDefault(col);
+
+            newVal = isInt ? Utils.FloatStrToIntStr(newVal) : newVal;
+
+            Paragraph newParagraph = new Paragraph();
+
+            ParagraphProperties paragraphProperties = new ParagraphProperties(new Justification() { Val = val });
+
+            newParagraph.Append(paragraphProperties);
+
+            Run run = new Run(new Text(newVal));
+
+            RunProperties runProperties = new RunProperties(new RunFonts() { Ascii = "宋体" }, new FontSize() { Val = "24" });
+
+            run.Append(runProperties);
+
+            newParagraph.Append(run);
 
             if (targetCell.Elements<Paragraph>().Any())
             {
                 targetCell.RemoveAllChildren<Paragraph>();
             }
-
-            newVal = Utils.FloatStrToIntStr(newVal);
-
-            Paragraph newParagraph = new Paragraph(new Run(new Text(newVal)));
 
             targetCell.Append(newParagraph);
         }

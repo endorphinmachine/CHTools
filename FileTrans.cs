@@ -16,54 +16,42 @@ namespace CHTools
         {
             InitializeComponent();
         }
-        public static void DocToDocx(string inPath)
+        public static void DocToDocx(Word.Application app, string inPath)
         {
             string outPath = Path.ChangeExtension(inPath, ".docx");
-            Word.Application app = new Word.Application();
             Word.Document doc = app.Documents.Open(inPath);
             doc.SaveAs2(outPath, Word.WdSaveFormat.wdFormatXMLDocument);
             doc.Close(wordSave, missing, missing);
-            app.Quit(wordSave, missing, missing);
-            ReleaseObject(doc);
-            ReleaseObject(app);
+            GC.Collect();
         }
 
-        public void DocxToDoc(string inPath)
+        public void DocxToDoc(Word.Application app, string inPath)
         {
             string outPath = Path.ChangeExtension(inPath, ".doc");
-            Word.Application app = new Word.Application();
             Word.Document docx = app.Documents.Open(inPath);
             docx.SaveAs2(outPath, Word.WdSaveFormat.wdFormatDocument);
             docx.Close(wordSave, missing, missing);
-            app.Quit(wordSave, missing, missing);
             ReleaseObject(docx);
-            ReleaseObject(app);
         }
 
         // 将 .xls 转换为 .xlsx
-        public void XlsToXlsx(string inPath)
+        public void XlsToXlsx(Excel.Application app, string inPath)
         {
             string outPath = Path.ChangeExtension(inPath, ".xlsx");
-            var app = new Excel.Application();
             var workbook = app.Workbooks.Open(inPath);
             workbook.SaveAs(outPath, Excel.XlFileFormat.xlOpenXMLWorkbook);
             workbook.Close(excelSave, missing, missing);
-            app.Quit();
             ReleaseObject(workbook);
-            ReleaseObject(app);
         }
 
         // 将 .xlsx 转换为 .xls
-        public void XlsxToXls(string inPath)
+        public void XlsxToXls(Excel.Application app, string inPath)
         {
             string outPath = Path.ChangeExtension(inPath, ".xls");
-            var app = new Excel.Application();
             var workbook = app.Workbooks.Open(inPath);
             workbook.SaveAs(outPath, Excel.XlFileFormat.xlWorkbookNormal);
             workbook.Close(excelSave, missing, missing);
-            app.Quit();
             ReleaseObject(workbook);
-            ReleaseObject(app);
         }
         static void ReleaseObject(object obj)
         {
@@ -83,20 +71,23 @@ namespace CHTools
 
         private void ChooseBtn_Click(object sender, EventArgs e)
         {
+
+            InputPathBox.Text = string.Empty;
             string filterText = string.Empty;
             if (ToDocx.Checked)
             {
                 filterText = "*.doc | *.doc";
             }
-            else if(ToDoc.Checked)
+
+            else if (ToDoc.Checked)
             {
                 filterText = "*.docx | *.docx";
             }
-            else if(ToXlsx.Checked)
+            else if (ToXlsx.Checked)
             {
                 filterText = "*.xls | *.xls";
             }
-            else if(ToXls.Checked)
+            else if (ToXls.Checked)
             {
                 filterText = "*.xlsx| *.xlsx";
             }
@@ -116,36 +107,53 @@ namespace CHTools
 
         public void TransBtn_Click(object sender, EventArgs e)
         {
+            Cursor.Current = Cursors.WaitCursor;
             InputPathBox.Lines = InputPathBox.Lines.Where(line => !string.IsNullOrWhiteSpace(line)).ToArray();
+
             if (ToDocx.Checked)
             {
+                Word.Application app = new Word.Application();
                 foreach (var path in InputPathBox.Lines)
                 {
-                    DocToDocx(path);
+                    DocToDocx(app, path);
                 }
+                app.Quit(wordSave, missing, missing);
+                ReleaseObject(app);
             }
 
             else if (ToDoc.Checked)
             {
+                Word.Application app = new Word.Application();
                 foreach (var path in InputPathBox.Lines)
                 {
-                    DocxToDoc(path);
+                    DocxToDoc(app, path);
                 }
+                app.Quit(wordSave, missing, missing);
+                ReleaseObject(app);
             }
+
             else if (ToXlsx.Checked)
             {
+                Excel.Application app = new Excel.Application();
                 foreach (var path in InputPathBox.Lines)
                 {
-                    XlsToXlsx(path);
+                    XlsToXlsx(app, path);
                 }
+                app.Quit();
+                ReleaseObject(app);
             }
+
             else if (ToXls.Checked)
             {
+                Excel.Application app = new Excel.Application();
                 foreach (var path in InputPathBox.Lines)
                 {
-                    XlsxToXls(path);
+                    XlsxToXls(app, path);
                 }
+                app.Quit();
+                ReleaseObject(app);
             }
+            Cursor.Current = Cursors.Default;
             MessageBox.Show("文件格式转换完成", "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
     }

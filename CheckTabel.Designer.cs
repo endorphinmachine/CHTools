@@ -41,11 +41,11 @@
             this.cTable.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.cTable.Dock = System.Windows.Forms.DockStyle.Bottom;
             this.cTable.GridColor = System.Drawing.SystemColors.GradientInactiveCaption;
-            this.cTable.Location = new System.Drawing.Point(0, 38);
+            this.cTable.Location = new System.Drawing.Point(0, 41);
             this.cTable.Name = "cTable";
             this.cTable.RowHeadersWidth = 51;
             this.cTable.RowTemplate.Height = 27;
-            this.cTable.Size = new System.Drawing.Size(800, 412);
+            this.cTable.Size = new System.Drawing.Size(1182, 412);
             this.cTable.TabIndex = 0;
             // 
             // label1
@@ -61,16 +61,16 @@
             // SelectBox
             // 
             this.SelectBox.FormattingEnabled = true;
-            this.SelectBox.Location = new System.Drawing.Point(263, 7);
+            this.SelectBox.Location = new System.Drawing.Point(237, 8);
             this.SelectBox.Name = "SelectBox";
-            this.SelectBox.Size = new System.Drawing.Size(525, 23);
+            this.SelectBox.Size = new System.Drawing.Size(933, 23);
             this.SelectBox.TabIndex = 2;
             // 
             // CheckTabel
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
+            this.ClientSize = new System.Drawing.Size(1182, 453);
             this.Controls.Add(this.SelectBox);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.cTable);

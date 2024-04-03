@@ -48,22 +48,22 @@ namespace CHTools
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                   EPSPathBox.Text = openFileDialog.FileName;
+                    EPSPathBox.Text = openFileDialog.FileName;
                 }
             }
         }
 
         private void EPSPathBox_TextChanged(object sender, EventArgs e)
         {
-            if (File.Exists(EPSPathBox.Text))
+            EPSOp EPSop = new EPSOp(EPSPathBox.Text);
+            if (EPSop.ShowDialog() == DialogResult.OK)
             {
-                Project EPSproject = EDBconnector.ReadEPS(EPSPathBox.Text);
-                NumberBox.Text = EPSproject.Number;
-                BuilderBox.Text = EPSproject.Builder;
-                DesignerBox.Text = EPSproject.Designer;
-                ContractorBox.Text = EPSproject.Contractor;
-                LocationBox.Text = EPSproject.Location;
-                JSGCGHXK.Text = EPSproject.BJNo;
+                NumberBox.Text = EPSop.EpsProject.Number;
+                BuilderBox.Text = EPSop.EpsProject.Builder;
+                DesignerBox.Text = EPSop.EpsProject.Designer;
+                ContractorBox.Text = EPSop.EpsProject.Contractor;
+                LocationBox.Text = EPSop.EpsProject.Location;
+                JSGCGHXK.Text = EPSop.EpsProject.BJNo;
             }
         }
 
@@ -89,8 +89,10 @@ namespace CHTools
         // 生成核实概况
         private void GenerateBtn_Click(object sender, EventArgs e)
         {
+            noMatchItem.Clear();
+            noMatchBuild.Clear();
+            MatchedBuild.Clear();
             Cursor.Current = Cursors.WaitCursor;
-            string buildMessage = string.Empty;
 
             if (!File.Exists(ExcelPathBox.Text))
             {
@@ -110,14 +112,23 @@ namespace CHTools
                 {
                     // 在此根据build.name搜索对应word并将路径给到下面的函数
                     Generate(build);
-                    buildMessage += build.Name + "\n";
                 }
-                MessageBox.Show(buildMessage + "\n槪况表已保存在当前目录",
+                if (noMatchBuild.Count != 0)
+                {
+                    MessageBox.Show(string.Join("\n", noMatchBuild) + "\n建设项目名称未生成，请检查项目名称是否匹配",
+                    "注意", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                if (noMatchItem.Count != 0)
+                {
+                    MessageBox.Show(string.Join("\n", noMatchItem) + "\n建设项目字段未匹配，请检查字段名称并手动填写",
+                    "注意", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                }
+                MessageBox.Show(string.Join("\n", MatchedBuild) + "\n概况表已生成",
                  "完成", MessageBoxButtons.OK, MessageBoxIcon.Information);
             }
             Cursor.Current = Cursors.Default;
         }
-        
+
         //生成矢量数据
         private void GenVecBtn_Click(object sender, EventArgs e)
         {
@@ -163,6 +174,7 @@ namespace CHTools
                 }
             }
             Cursor.Current = Cursors.Default;
+        }
 
         //检核槪况数据
         public void CheckBtn_Click(object sender, EventArgs e)
@@ -188,7 +200,7 @@ namespace CHTools
             }
             Cursor.Current = Cursors.Default;
         }
-        
+
         private void BuilderBox_TextChanged(object sender, EventArgs e)
         {
             project.Builder = BuilderBox.Text;
@@ -207,7 +219,7 @@ namespace CHTools
         }
         private void LicenseBox_TextChanged(object sender, EventArgs e)
         {
-            project.BJNo = LicenseBox.Text;
+            project.BJNo = JSGCGHXK.Text;
         }
         private void ApprovmentBox_TextChanged(object sender, EventArgs e)
         {
@@ -224,4 +236,4 @@ namespace CHTools
             FileTrans.Show();
         }
     }
-}
+ }

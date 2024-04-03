@@ -1,8 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CHTools
 {
@@ -10,11 +7,8 @@ namespace CHTools
     {
         private string number;
         private string name;
-        private string ground;
-        private string udGround;
         private string bjNo; // 报建编号
         private string ydNo; // 建设用地规划许可证
-        private string buildings;
         private string location;
         private string builder;
         private string designer;
@@ -22,11 +16,8 @@ namespace CHTools
         private List<Build> builds;
         public string Number { get => number; set => number = value; }
         public string Name { get => name; set => name = value; }
-        public string Ground { get => ground; set => ground = value; }
-        public string UdGround { get => udGround; set => udGround = value; }
         public string BJNo { get => bjNo; set => bjNo = value; }
         public string YDNo { get => ydNo; set => ydNo = value; }
-        public string Buildings { get => buildings; set => buildings = value; }
         public string Location { get => location; set => location = value; }
         public string Builder { get => builder; set => builder = value; }
         public string Designer { get => designer; set => designer = value; }
@@ -112,13 +103,13 @@ namespace CHTools
         private string area;
         private string function;
         private string floor;
-        private bool isUdgGound;
+        private bool isUdGound;
 
         public string Name { get => name; set => name = value; }
         public string Area { get => area; set => area = value; }
         public string Function { get => function; set => function = value; }
         public string Floor { get => floor; set => floor = value; }
-        public bool IsUdGround { get => isUdgGound; set => isUdgGound = value; }
+        public bool IsUdGround { get => isUdGound; set => isUdGound = value; }
     }
 
     public class Vector
