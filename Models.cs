@@ -8,6 +8,7 @@ namespace CHTools
         private string number;
         private string name;
         private string bjNo; // 报建编号
+        private string pwNo; // 相关批文号
         private string ydNo; // 建设用地规划许可证
         private string location;
         private string builder;
@@ -17,6 +18,7 @@ namespace CHTools
         public string Number { get => number; set => number = value; }
         public string Name { get => name; set => name = value; }
         public string BJNo { get => bjNo; set => bjNo = value; }
+        public string PWNo { get => pwNo; set => pwNo = value; }
         public string YDNo { get => ydNo; set => ydNo = value; }
         public string Location { get => location; set => location = value; }
         public string Builder { get => builder; set => builder = value; }
@@ -66,6 +68,7 @@ namespace CHTools
             Units = new List<BuildUnit>();
         }
 
+        // 先取整后求和的地上面积
         public int GetDS()
         {
             int sum = 0;

@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Data;
 using System.Data.OleDb;
 using System.Windows.Forms;
@@ -75,7 +74,7 @@ namespace CHTools
             EpsProject.Builder = EPSTable.Rows[SelecetedRow].Cells[4].Value.ToString();
             EpsProject.Designer = EPSTable.Rows[SelecetedRow].Cells[5].Value.ToString();
             EpsProject.Contractor = EPSTable.Rows[SelecetedRow].Cells[6].Value.ToString();
-            this.DialogResult= DialogResult.OK;
+            this.DialogResult = DialogResult.OK;
         }
     }
 }

@@ -3,7 +3,6 @@ using DocumentFormat.OpenXml.Wordprocessing;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -14,76 +13,95 @@ namespace CHTools
     {
         public Project project;
         public List<object> WordPath { get; set; }
-
         public CheckTabel(Project project)
         {
             InitializeComponent();
-            Load += GetPath;
-            this.SelectBox.SelectedIndexChanged += Check;
+            Load += Check;
             this.project = project;
         }
 
-        public void GetPath(object sender, EventArgs e)
+        private void Check(object sender, EventArgs e)
         {
-            SelectBox.DataSource = WordPath;
-        }
-
-        public void Check(object sender, EventArgs e)
-        {
-            foreach (var path in SelectBox.Items)
-            {
-                List<Build> builds = GetBuild(path.ToString());
-                GenerateTable(builds);
-            }
-        }
-
-
-        private void GenerateTable(List<Build> builds)
-        {
-            Build ebuild = builds[0];
-            Build wbuild = builds[1];
-            // 创建一个新的 DataTable 用于存储转置后的数据
+            // 创建一个新的 DataTable 用于存储不匹配的字段数据
             DataTable table = new DataTable();
-
-            // 添加列到转置后的 DataTable 中，列的数量等于原始数据行的数量
-            table.Columns.Add("字段名称", typeof(string));
+            table.Columns.Add("工程编号", typeof(string));
+            table.Columns.Add("建设项目名称", typeof(string));
+            table.Columns.Add("不匹配字段", typeof(string));
             table.Columns.Add("面积汇总表", typeof(string));
             table.Columns.Add("核实概况表", typeof(string));
-            table.Columns.Add("一致性", typeof(bool));
-            table.Columns.Add("修改数据(待开发)", typeof(string));
-
-            // 添加行到转置后的 DataTable 中，行的数量等于原始数据列的数量
-            table.Rows.Add("工程编号", ebuild.Number, wbuild.Number, IsMatch(ebuild.Number, wbuild.Number));
-            table.Rows.Add("建设项目名称", ebuild.Name, wbuild.Name, IsMatch(ebuild.Name, wbuild.Name));
-            table.Rows.Add("总面积", ebuild.Z, wbuild.Z, IsMatch(ebuild.Z, wbuild.Z));
-            table.Rows.Add("地上面积", ebuild.DS, wbuild.DS, IsMatch(ebuild.DS, wbuild.DS));
-            table.Rows.Add("地下面积", ebuild.DX, wbuild.DX, IsMatch(ebuild.DX, wbuild.DX));
-            table.Rows.Add("基底面积", ebuild.JD, wbuild.JD, IsMatch(ebuild.JD, wbuild.JD));
-            table.Rows.Add("计算容积率面积", ebuild.JR, wbuild.JR, IsMatch(ebuild.JR, wbuild.JR));
-            table.Rows.Add("计算容积率饰面面积", ebuild.JRSM, wbuild.JRSM, IsMatch(ebuild.JRSM, wbuild.JRSM));
-            table.Rows.Add("外墙饰面面积", ebuild.WQSM, wbuild.WQSM, IsMatch(ebuild.WQSM, wbuild.WQSM));
-            table.Rows.Add("饰面厚", ebuild.SMHD, wbuild.SMHD, IsMatch(ebuild.SMHD, wbuild.SMHD));
-            table.Rows.Add("阳台面积", ebuild.YT, wbuild.YT, IsMatch(ebuild.YT, wbuild.YT));
-            table.Rows.Add("住宅户数", ebuild.HS, wbuild.HS, IsMatch(ebuild.HS, wbuild.HS));
-
-            foreach (var eunit in ebuild.Units)
+            foreach (var path in WordPath)
             {
-                foreach (var wunit in wbuild.Units)
+                List<Build> builds = GetBuild(path.ToString());
+                Build ebuild = builds[0];
+                Build wbuild = builds[1];
+
+                if (!IsMatch(ebuild.Number, wbuild.Number))
                 {
-                    if (eunit.Name == wunit.Name)
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "工程编号", ebuild.Number, wbuild.Number);
+                }
+                if (!IsMatch(ebuild.Name, wbuild.Name))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "建设项目名称", ebuild.Name, wbuild.Name);
+                }
+                if (!IsMatch(ebuild.Z, wbuild.Z))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "总面积", ebuild.Z, wbuild.Z);
+                }
+                if (!IsMatch(ebuild.DS, wbuild.DS))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "地上面积", ebuild.DS, wbuild.DS);
+                }
+                if (!IsMatch(ebuild.DX, wbuild.DX))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "地下面积", ebuild.DX, wbuild.DX);
+                }
+                if (!IsMatch(ebuild.JD, wbuild.JD))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "基底面积", ebuild.JD, wbuild.JD);
+                }
+                if (!IsMatch(ebuild.JR, wbuild.JR))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "计算容积率面积", ebuild.JR, wbuild.JR);
+                }
+                if (!IsMatch(ebuild.JRSM, wbuild.JRSM))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "计算容积率饰面面积", ebuild.JRSM, wbuild.JRSM);
+                }
+                if (!IsMatch(ebuild.WQSM, wbuild.WQSM))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "外墙饰面面积", ebuild.WQSM, wbuild.WQSM);
+                }
+                if (!IsMatch(ebuild.SMHD, wbuild.SMHD))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "饰面厚", ebuild.SMHD, wbuild.SMHD);
+                }
+                if (!IsMatch(ebuild.YT, wbuild.YT))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "阳台面积", ebuild.YT, wbuild.YT);
+                }
+                if (!IsMatch(ebuild.HS, wbuild.HS))
+                {
+                    table.Rows.Add(ebuild.Number, ebuild.Name, "住宅户数", ebuild.HS, wbuild.HS);
+                }
+
+                foreach (var eunit in ebuild.Units)
+                {
+                    foreach (var wunit in wbuild.Units)
                     {
-                        table.Rows.Add(eunit.Name, eunit.Area, wunit.Area, IsMatch(eunit.Area, wunit.Area));
+                        if (eunit.Name == wunit.Name && !IsMatch(eunit.Area, wunit.Area))
+                        {
+                            table.Rows.Add(ebuild.Number, ebuild.Name, eunit.Name, eunit.Area, wunit.Area);
+                        }
                     }
                 }
             }
 
             cTable.DataSource = table;
-
-            cTable.Columns["字段名称"].ReadOnly = true;
+            cTable.Columns["工程编号"].ReadOnly = true;
+            cTable.Columns["建设项目名称"].ReadOnly = true;
+            cTable.Columns["不匹配字段"].ReadOnly = true;
             cTable.Columns["面积汇总表"].ReadOnly = true;
             cTable.Columns["核实概况表"].ReadOnly = true;
-            cTable.Columns["一致性"].ReadOnly = true;
-            //cTable.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
         }
 
         private List<Build> GetBuild(string path)

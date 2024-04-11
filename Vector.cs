@@ -12,7 +12,6 @@ namespace CHTools
 {
     public partial class Tools : Form
     {
-
         public Vector ReadVec(string wordPath)
         {
             Vector Vector = new Vector();

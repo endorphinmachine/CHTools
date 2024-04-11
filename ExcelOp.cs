@@ -26,6 +26,7 @@ namespace CHTools
                 foreach (int RowIndex in MergedRow)
                 {
                     var buildName = excelSheet.Cells[RowIndex, 1].Text.Trim();
+                    buildName = Utils.Bracketcs(buildName);
 
                     if (NonEmptyCellCount(excelSheet, RowIndex) == 1 && !string.IsNullOrEmpty(buildName))
                     {

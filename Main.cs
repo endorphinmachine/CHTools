@@ -16,6 +16,35 @@ namespace CHTools
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
         }
 
+        private void EPSInputButton_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "EPS 工程 (.edb)|*.edb";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    EPSPathBox.Text = openFileDialog.FileName;
+                    EPSOp EPSop = new EPSOp(EPSPathBox.Text);
+                    EPSop.ShowDialog();
+                    NumberBox.Text = EPSop.EpsProject.Number;
+                    BuilderBox.Text = EPSop.EpsProject.Builder;
+                    DesignerBox.Text = EPSop.EpsProject.Designer;
+                    ContractorBox.Text = EPSop.EpsProject.Contractor;
+                    LocationBox.Text = EPSop.EpsProject.Location;
+                    LicenseBox.Text = EPSop.EpsProject.BJNo;
+                    ApprovmentBox.Text = string.Empty;
+                    if (EPSop.EpsProject.BJNo.Contains("、") || EPSop.EpsProject.BJNo.Contains(" "))
+                    {
+                        string[] BJNos = EPSop.EpsProject.BJNo.Split(new char[] { ' ', '、' }, 2);
+                        LicenseBox.Text = BJNos[0].Replace('\\', ' ');
+                        ApprovmentBox.Text = BJNos[1].Replace('\\', ' ');
+                    }
+
+                }
+            }
+        }
+
         // 导入Excel文件
         private void ExcelInputBtn_Click(object sender, EventArgs e)
         {
@@ -25,6 +54,9 @@ namespace CHTools
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
                     ExcelPathBox.Text = openFileDialog.FileName;
+                    BuildNameBox.Items.Clear();
+                    ReadExcel();
+                    BuildNameBox.SelectedIndex = 0;
                 }
             }
         }
@@ -40,39 +72,12 @@ namespace CHTools
             }
         }
 
-        private void EPSInputButton_Click(object sender, EventArgs e)
-        {
-            using (var openFileDialog = new OpenFileDialog())
-            {
-                openFileDialog.Filter = "EPS 工程 (.edb)|*.edb";
-
-                if (openFileDialog.ShowDialog() == DialogResult.OK)
-                {
-                    EPSPathBox.Text = openFileDialog.FileName;
-                }
-            }
-        }
-
-        private void EPSPathBox_TextChanged(object sender, EventArgs e)
-        {
-            EPSOp EPSop = new EPSOp(EPSPathBox.Text);
-            if (EPSop.ShowDialog() == DialogResult.OK)
-            {
-                NumberBox.Text = EPSop.EpsProject.Number;
-                BuilderBox.Text = EPSop.EpsProject.Builder;
-                DesignerBox.Text = EPSop.EpsProject.Designer;
-                ContractorBox.Text = EPSop.EpsProject.Contractor;
-                LocationBox.Text = EPSop.EpsProject.Location;
-                JSGCGHXK.Text = EPSop.EpsProject.BJNo;
-            }
-        }
-
         // 导入Word文件
         private void WordInputBtn_Click(object sender, EventArgs e)
         {
             using (var openFileDialog = new OpenFileDialog { Multiselect = true })
             {
-                openFileDialog.Filter = "Word 文档 (*.docx)|*.doc";
+                openFileDialog.Filter = "Word 文档 (*.docx)|*.docx";
 
                 if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
@@ -192,13 +197,24 @@ namespace CHTools
             {
                 List<object> wordPath = WordPathBox.Items.Cast<object>().ToList();
 
-                CheckTabel checkTabel = new CheckTabel(project);
-
-                checkTabel.WordPath = wordPath;
+                CheckTabel checkTabel = new CheckTabel(project)
+                {
+                    WordPath = wordPath
+                };
 
                 checkTabel.ShowDialog();
             }
             Cursor.Current = Cursors.Default;
+        }
+        private void PhotoBtn_Click(object sender, EventArgs e)
+        {
+            List<object> names = BuildNameBox.Items.Cast<object>().ToList();
+            Form photo = new Photo()
+            {
+                Names = names,
+                WeiZhang = WeiZhang.Checked
+            };
+            photo.Show();
         }
 
         private void BuilderBox_TextChanged(object sender, EventArgs e)
@@ -223,7 +239,7 @@ namespace CHTools
         }
         private void ApprovmentBox_TextChanged(object sender, EventArgs e)
         {
-            project.YDNo = ApprovmentBox.Text;
+            project.PWNo = ApprovmentBox.Text;
         }
         private void NumberBox_TextChanged(object sender, EventArgs e)
         {
@@ -236,4 +252,4 @@ namespace CHTools
             FileTrans.Show();
         }
     }
- }
+}
