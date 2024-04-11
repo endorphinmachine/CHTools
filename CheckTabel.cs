@@ -13,6 +13,7 @@ namespace CHTools
     {
         public Project project;
         public List<object> WordPath { get; set; }
+
         public CheckTabel(Project project)
         {
             InitializeComponent();
@@ -64,32 +65,46 @@ namespace CHTools
                     table.Rows.Add(ebuild.Number, ebuild.Name, "计算容积率面积", ebuild.JR, wbuild.JR);
                 }
                 if (!IsMatch(ebuild.JRSM, wbuild.JRSM))
-                {
+        {
                     table.Rows.Add(ebuild.Number, ebuild.Name, "计算容积率饰面面积", ebuild.JRSM, wbuild.JRSM);
-                }
+        }
                 if (!IsMatch(ebuild.WQSM, wbuild.WQSM))
-                {
+        {
                     table.Rows.Add(ebuild.Number, ebuild.Name, "外墙饰面面积", ebuild.WQSM, wbuild.WQSM);
                 }
                 if (!IsMatch(ebuild.SMHD, wbuild.SMHD))
-                {
+            {
                     table.Rows.Add(ebuild.Number, ebuild.Name, "饰面厚", ebuild.SMHD, wbuild.SMHD);
-                }
+            }
                 if (!IsMatch(ebuild.YT, wbuild.YT))
                 {
                     table.Rows.Add(ebuild.Number, ebuild.Name, "阳台面积", ebuild.YT, wbuild.YT);
-                }
+        }
                 if (!IsMatch(ebuild.HS, wbuild.HS))
-                {
+        {
                     table.Rows.Add(ebuild.Number, ebuild.Name, "住宅户数", ebuild.HS, wbuild.HS);
                 }
 
-                foreach (var eunit in ebuild.Units)
+            // 添加行到转置后的 DataTable 中，行的数量等于原始数据列的数量
+            table.Rows.Add("工程编号", ebuild.Number, wbuild.Number, IsMatch(ebuild.Number, wbuild.Number));
+            table.Rows.Add("建设项目名称", ebuild.Name, wbuild.Name, IsMatch(ebuild.Name, wbuild.Name));
+            table.Rows.Add("总面积", ebuild.Z, wbuild.Z, IsMatch(ebuild.Z, wbuild.Z));
+            table.Rows.Add("地上面积", ebuild.DS, wbuild.DS, IsMatch(ebuild.DS, wbuild.DS));
+            table.Rows.Add("地下面积", ebuild.DX, wbuild.DX, IsMatch(ebuild.DX, wbuild.DX));
+            table.Rows.Add("基底面积", ebuild.JD, wbuild.JD, IsMatch(ebuild.JD, wbuild.JD));
+            table.Rows.Add("计算容积率面积", ebuild.JR, wbuild.JR, IsMatch(ebuild.JR, wbuild.JR));
+            table.Rows.Add("计算容积率饰面面积", ebuild.JRSM, wbuild.JRSM, IsMatch(ebuild.JRSM, wbuild.JRSM));
+            table.Rows.Add("外墙饰面面积", ebuild.WQSM, wbuild.WQSM, IsMatch(ebuild.WQSM, wbuild.WQSM));
+            table.Rows.Add("饰面厚", ebuild.SMHD, wbuild.SMHD, IsMatch(ebuild.SMHD, wbuild.SMHD));
+            table.Rows.Add("阳台面积", ebuild.YT, wbuild.YT, IsMatch(ebuild.YT, wbuild.YT));
+            table.Rows.Add("住宅户数", ebuild.HS, wbuild.HS, IsMatch(ebuild.HS, wbuild.HS));
+
+            foreach (var eunit in ebuild.Units)
+            {
+                foreach (var wunit in wbuild.Units)
                 {
-                    foreach (var wunit in wbuild.Units)
-                    {
                         if (eunit.Name == wunit.Name && !IsMatch(eunit.Area, wunit.Area))
-                        {
+                    {
                             table.Rows.Add(ebuild.Number, ebuild.Name, eunit.Name, eunit.Area, wunit.Area);
                         }
                     }
@@ -102,8 +117,10 @@ namespace CHTools
             cTable.Columns["不匹配字段"].ReadOnly = true;
             cTable.Columns["面积汇总表"].ReadOnly = true;
             cTable.Columns["核实概况表"].ReadOnly = true;
+            cTable.Columns["是否一致"].ReadOnly = true;
+            //cTable.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.Fill);
         }
-
+        
         private List<Build> GetBuild(string path)
         {
             if (!File.Exists(path.ToString()))

@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Word = Microsoft.Office.Interop.Word;
+using Excel = Microsoft.Office.Interop.Excel;
+using System;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -72,12 +74,14 @@ namespace CHTools
 
         private void ChooseBtn_Click(object sender, EventArgs e)
         {
+
             InputPathBox.Text = string.Empty;
             string filterText = string.Empty;
             if (ToDocx.Checked)
             {
                 filterText = "*.doc | *.doc";
             }
+
             else if (ToDoc.Checked)
             {
                 filterText = "*.docx | *.docx";
@@ -157,3 +161,4 @@ namespace CHTools
         }
     }
 }
+

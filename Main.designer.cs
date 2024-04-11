@@ -60,6 +60,7 @@
             this.EPSInputButton = new System.Windows.Forms.Button();
             this.EPSPathBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
             this.FileBtn = new System.Windows.Forms.Button();
             GenerateBtn = new System.Windows.Forms.Button();
             PhotoBtn = new System.Windows.Forms.Button();
@@ -358,6 +359,7 @@
             this.EPSPathBox.Name = "EPSPathBox";
             this.EPSPathBox.Size = new System.Drawing.Size(393, 25);
             this.EPSPathBox.TabIndex = 97;
+            this.EPSPathBox.TextChanged += new System.EventHandler(this.EPSPathBox_TextChanged);
             // 
             // label9
             // 
@@ -367,6 +369,15 @@
             this.label9.Size = new System.Drawing.Size(84, 15);
             this.label9.TabIndex = 96;
             this.label9.Text = "EPS平面图:";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(339, 134);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(90, 15);
+            this.label11.TabIndex = 79;
+            this.label11.Text = "相关批文号:";
             // 
             // FileBtn
             // 
@@ -472,6 +483,7 @@
         private System.Windows.Forms.Button EPSInputButton;
         private System.Windows.Forms.TextBox EPSPathBox;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label label11;
         private System.Windows.Forms.Button FileBtn;
     }
 }

@@ -107,6 +107,7 @@
             // 
             // TransBtn
             // 
+
             this.TransBtn.Location = new System.Drawing.Point(216, 171);
             this.TransBtn.Margin = new System.Windows.Forms.Padding(2);
             this.TransBtn.Name = "TransBtn";
@@ -118,6 +119,7 @@
             // 
             // FileTrans
             // 
+
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(314, 200);

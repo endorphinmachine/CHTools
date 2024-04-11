@@ -149,9 +149,9 @@ namespace CHTools
                             intDSMJ = AdjustArea(build, intDSMJ + 1, false);
                         }
                         else
-                        {
+                            {
                             intDXMJ = AdjustArea(build, intDXMJ + 1, true);
-                        }
+                            }
                     }
 
                     while (intDSMJ + intDXMJ > intZMJ)
@@ -160,17 +160,18 @@ namespace CHTools
                         {
                             intDSMJ = AdjustArea(build, intDSMJ - 1, false);
                         }
-                        else
-                        {
+                            else
+                            {
                             intDXMJ = AdjustArea(build, intDXMJ - 1, true);
+                            }
                         }
-                    }
 
                     if (DSMJ == 0)
                     {
                         //  intDXMJ:先求和后取整的地上面积 //build.GetDX():先取整后求和的地上面积
                         while (intDXMJ != build.GetDX())
                         {
+                            int sumDXMJ = build.GetDX();
                             intDXMJ = AdjustArea(build, intDXMJ, true);
                         }
                     }
@@ -178,6 +179,7 @@ namespace CHTools
                     {
                         while (intDSMJ != build.GetDS())
                         {
+                            int sumDSMJ = build.GetDS();
                             intDSMJ = AdjustArea(build, intDSMJ, false);
                         }
                     }
@@ -248,6 +250,7 @@ namespace CHTools
                             Cell = Utils.FindCellIndex(tableB, "屋顶梯屋及电梯机房");
                         }
 
+                        // 如果excel表格有匹配项，则直接写入word表格; 如果excel表格无匹配项，则在窗口中提示
                         if (Cell != null)
                         {
                             Utils.SetCellVal(tableB, Cell.Item1, Cell.Item2 + 2, u.Area, true, true, 21);
@@ -262,6 +265,7 @@ namespace CHTools
             }
         }
 
+
         //调整闭合差
         private int AdjustArea(Build build, float Area, bool isUnderground)
         {
@@ -269,26 +273,29 @@ namespace CHTools
             float fArea = 0;
             float max = 0;
             float min = 0;
+            float totalArea = 0;
             string maxKey = string.Empty;
             string minKey = string.Empty;
 
             foreach (var u in build.Units.FindAll(u => u.IsUdGround == isUnderground))
-            {
+                {
                 float floatArea = Utils.StrToFloat(u.Area);
                 int intArea = (int)Math.Round(floatArea, 0);
                 iArea += intArea;
                 fArea += floatArea;
-                // 计算取整后的增量
+                    // 计算取整后的增量
                 float diff = floatArea - intArea;
-                if (diff >= 0 && diff > max)
-                {
-                    max = diff;
-                    maxKey = u.Name;
-                }
-                if (diff < 0 && diff < min)
-                {
-                    min = diff;
-                    minKey = u.Name;
+                    if (diff >= 0 && diff > max)
+                    {
+                        max = diff;
+                        maxKey = u.Name;
+                    }
+                    if (diff < 0 && diff < min)
+                    {
+                        min = diff;
+                        minKey = u.Name;
+                    }
+                    sum += intArea;
                 }
             }
 

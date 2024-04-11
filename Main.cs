@@ -72,6 +72,33 @@ namespace CHTools
             }
         }
 
+        private void EPSInputButton_Click(object sender, EventArgs e)
+        {
+            using (var openFileDialog = new OpenFileDialog())
+            {
+                openFileDialog.Filter = "EPS 工程 (.edb)|*.edb";
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    EPSPathBox.Text = openFileDialog.FileName;
+                }
+            }
+        }
+
+        private void EPSPathBox_TextChanged(object sender, EventArgs e)
+        {
+            EPSOp EPSop = new EPSOp(EPSPathBox.Text);
+            if (EPSop.ShowDialog() == DialogResult.OK)
+            {
+                NumberBox.Text = EPSop.EpsProject.Number;
+                BuilderBox.Text = EPSop.EpsProject.Builder;
+                DesignerBox.Text = EPSop.EpsProject.Designer;
+                ContractorBox.Text = EPSop.EpsProject.Contractor;
+                LocationBox.Text = EPSop.EpsProject.Location;
+                JSGCGHXK.Text = EPSop.EpsProject.BJNo;
+            }
+        }
+
         // 导入Word文件
         private void WordInputBtn_Click(object sender, EventArgs e)
         {
@@ -252,4 +279,4 @@ namespace CHTools
             FileTrans.Show();
         }
     }
-}
+ }

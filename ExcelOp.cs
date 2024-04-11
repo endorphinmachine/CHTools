@@ -186,5 +186,6 @@ namespace CHTools
 
             return row.Count(cell => !string.IsNullOrEmpty(cell.Text));
         }
+
     }
 }
